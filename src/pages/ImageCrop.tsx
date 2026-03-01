@@ -9,6 +9,12 @@ import {
 import { FileDropzone } from "@/components/ui/file-dropzone";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import {
+  baseName,
+  decodeImageFile,
+  getOutputMimeAndExt,
+  HEIC_PARSE_ERROR,
+} from "@/lib/image-utils";
 import { Download, Crop } from "lucide-react";
 import {
   useCallback,
@@ -18,25 +24,6 @@ import {
 } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-
-const MIME_TO_EXT: Record<string, string> = {
-  "image/jpeg": "jpg",
-  "image/png": "png",
-  "image/webp": "webp",
-  "image/gif": "webp",
-};
-
-function getOutputMimeAndExt(file: File): { mime: string; ext: string } {
-  if (file.type === "image/svg+xml") return { mime: "image/png", ext: "png" };
-  if (file.type === "image/gif") return { mime: "image/webp", ext: "webp" };
-  const ext = MIME_TO_EXT[file.type] ?? "png";
-  const mime = file.type in MIME_TO_EXT ? file.type : "image/png";
-  return { mime, ext };
-}
-
-function baseName(fileName: string): string {
-  return fileName.replace(/\.[^.]+$/, "");
-}
 
 type CropRect = { x: number; y: number; w: number; h: number };
 
@@ -57,10 +44,15 @@ export function ImageCrop() {
 
   const containerRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
+  const objectUrlRef = useRef<string | null>(null);
 
-  // Create/revoke image URL when file changes
+  // Create/revoke image URL when file changes (HEIC wird zu JPEG dekodiert)
   useEffect(() => {
     if (!file) {
+      if (objectUrlRef.current) {
+        URL.revokeObjectURL(objectUrlRef.current);
+        objectUrlRef.current = null;
+      }
       setImageUrl(null);
       setNaturalSize(null);
       setCropRect(null);
@@ -68,15 +60,36 @@ export function ImageCrop() {
       return;
     }
     if (file.type === "image/svg+xml") {
+      if (objectUrlRef.current) {
+        URL.revokeObjectURL(objectUrlRef.current);
+        objectUrlRef.current = null;
+      }
       file.text().then((text) => {
         const dataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(text)}`;
         setImageUrl(dataUrl);
       });
-    } else {
-      const url = URL.createObjectURL(file);
-      setImageUrl(url);
-      return () => URL.revokeObjectURL(url);
+      return;
     }
+    let cancelled = false;
+    decodeImageFile(file)
+      .then((decoded) => {
+        if (cancelled) return;
+        if (objectUrlRef.current) URL.revokeObjectURL(objectUrlRef.current);
+        objectUrlRef.current = URL.createObjectURL(decoded);
+        setImageUrl(objectUrlRef.current);
+      })
+      .catch((err) => {
+        if (!cancelled && err instanceof Error && err.message === HEIC_PARSE_ERROR) {
+          setError(t("images.errors.heicParseError"));
+        }
+      });
+    return () => {
+      cancelled = true;
+      if (objectUrlRef.current) {
+        URL.revokeObjectURL(objectUrlRef.current);
+        objectUrlRef.current = null;
+      }
+    };
   }, [file]);
 
   useEffect(() => {
@@ -200,7 +213,7 @@ export function ImageCrop() {
     setCropping(true);
     try {
       const img = imgRef.current;
-      const { mime, ext } = getOutputMimeAndExt(file);
+      const { mime, ext } = getOutputMimeAndExt(file, "crop");
       const canvas = document.createElement("canvas");
       canvas.width = cropRect.w;
       canvas.height = cropRect.h;
@@ -217,7 +230,13 @@ export function ImageCrop() {
       if (!blob) throw new Error("Crop failed");
       setResult({ blob, baseName: baseName(file.name), ext });
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Crop failed");
+      setError(
+        e instanceof Error && e.message === HEIC_PARSE_ERROR
+          ? t("images.errors.heicParseError")
+          : e instanceof Error
+            ? e.message
+            : "Crop failed",
+      );
     } finally {
       setCropping(false);
     }

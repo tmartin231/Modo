@@ -9,7 +9,14 @@ const ACCEPT_IMAGE = {
   "image/png": [".png"],
   "image/webp": [".webp"],
   "image/gif": [".gif"],
+  "image/avif": [".avif"],
+  "image/heic": [".heic"],
+  "image/heif": [".heif"],
   "image/svg+xml": [".svg"],
+  "image/x-icon": [".ico"],
+  "image/vnd.microsoft.icon": [".ico"],
+  "image/tiff": [".tiff", ".tif"],
+  "image/bmp": [".bmp"],
 };
 
 export type FileDropzoneProps = {

@@ -24,6 +24,9 @@
     "filesSelected_one": "1 file selected",
     "filesSelected_other": "{{count}} files selected",
     "multipleHint": "– multiple allowed",
+    "errors": {
+      "heicParseError": "This HEIC/HEIF file could not be read. Some HEIF variants are not supported in the browser – try another file or convert the file to JPEG first (e.g. on your iPhone)."
+    },
     "convertPage": {
       "targetFormat": "Target format",
       "convertBtn": "Convert",

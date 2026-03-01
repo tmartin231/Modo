@@ -9,33 +9,24 @@ import {
 import { FileDropzone } from "@/components/ui/file-dropzone";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import {
+  baseName,
+  decodeImageFile,
+  getOutputMimeAndExt,
+  HEIC_PARSE_ERROR,
+} from "@/lib/image-utils";
 import { Download, FileArchive, Maximize2 } from "lucide-react";
 import JSZip from "jszip";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-const MIME_TO_EXT: Record<string, string> = {
-  "image/jpeg": "jpg",
-  "image/png": "png",
-  "image/webp": "webp",
-  "image/gif": "webp",
-};
-
-function getOutputMimeAndExt(file: File): { mime: string; ext: string } {
-  if (file.type === "image/svg+xml") return { mime: "image/png", ext: "png" };
-  if (file.type === "image/gif") return { mime: "image/webp", ext: "webp" };
-  const ext = MIME_TO_EXT[file.type] ?? "png";
-  const mime = file.type in MIME_TO_EXT ? file.type : "image/png";
-  return { mime, ext };
-}
-
 function resizeImage(
   file: File,
   scalePercent: number,
 ): Promise<{ blob: Blob; ext: string }> {
   const scale = Math.max(1, Math.min(200, scalePercent)) / 100;
-  const { mime, ext } = getOutputMimeAndExt(file);
+  const { mime, ext } = getOutputMimeAndExt(file, "resize");
 
   const drawToCanvas = (
     img: HTMLImageElement,
@@ -91,10 +82,6 @@ function resizeImage(
   });
 }
 
-function baseName(fileName: string): string {
-  return fileName.replace(/\.[^.]+$/, "");
-}
-
 export function ImageResize() {
   const { t } = useTranslation();
   const [files, setFiles] = useState<File[]>([]);
@@ -110,15 +97,23 @@ export function ImageResize() {
     setError(null);
     setResizing(true);
     try {
+      const decoded = await Promise.all(files.map(decodeImageFile));
       const converted = await Promise.all(
-        files.map(async (file) => {
-          const { blob, ext } = await resizeImage(file, scale);
+        decoded.map(async (decodedFile, i) => {
+          const file = files[i]!;
+          const { blob, ext } = await resizeImage(decodedFile, scale);
           return { blob, baseName: baseName(file.name), ext };
         }),
       );
       setResults(converted);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Resize failed");
+      setError(
+        e instanceof Error && e.message === HEIC_PARSE_ERROR
+          ? t("images.errors.heicParseError")
+          : e instanceof Error
+            ? e.message
+            : "Resize failed",
+      );
     } finally {
       setResizing(false);
     }

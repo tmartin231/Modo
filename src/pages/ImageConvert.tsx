@@ -9,7 +9,9 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { baseName, HEIC_PARSE_ERROR } from "@/lib/image-utils";
 import { ArrowLeftRight, Download, FileArchive } from "lucide-react";
+import heic2any from "heic2any";
 import JSZip from "jszip";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -83,11 +85,71 @@ function convertSvgToBlob(
   });
 }
 
+const HEIC_TYPES = ["image/heic", "image/heif"];
+
+function isHeic(file: File): boolean {
+  return HEIC_TYPES.includes(file.type);
+}
+
+function convertHeicToBlob(file: File, targetMime: string): Promise<Blob> {
+  const direct = targetMime === "image/png" || targetMime === "image/jpeg";
+  const toType = targetMime === "image/png" ? "image/png" : "image/jpeg";
+  return heic2any({
+    blob: file,
+    toType,
+    quality: 0.92,
+  })
+    .then((result) => {
+      const blob = Array.isArray(result) ? result[0] : result;
+      if (!blob || !(blob instanceof Blob)) throw new Error(HEIC_PARSE_ERROR);
+      if (direct && targetMime === toType) return blob;
+      if (targetMime === "image/webp" || targetMime === "image/gif")
+        return blobToTarget(blob, targetMime);
+      return blob;
+    })
+    .catch(() => {
+      throw new Error(HEIC_PARSE_ERROR);
+    });
+}
+
+function blobToTarget(blob: Blob, targetMime: string): Promise<Blob> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(blob);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      const canvas = document.createElement("canvas");
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) {
+        reject(new Error("Canvas not supported"));
+        return;
+      }
+      ctx.drawImage(img, 0, 0);
+      canvas.toBlob(
+        (b) => (b ? resolve(b) : reject(new Error("Conversion failed"))),
+        targetMime,
+        0.92,
+      );
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error("Failed to load image"));
+    };
+    img.src = url;
+  });
+}
+
 function convertImage(file: File, targetMime: string): Promise<Blob> {
   if (file.type === "image/svg+xml") {
     return file.text().then((svgContent) =>
       convertSvgToBlob(svgContent, targetMime),
     );
+  }
+
+  if (isHeic(file)) {
+    return convertHeicToBlob(file, targetMime);
   }
 
   return new Promise((resolve, reject) => {
@@ -119,10 +181,6 @@ function convertImage(file: File, targetMime: string): Promise<Blob> {
   });
 }
 
-function baseName(fileName: string): string {
-  return fileName.replace(/\.[^.]+$/, "");
-}
-
 export function ImageConvert() {
   const { t } = useTranslation();
   const [files, setFiles] = useState<File[]>([]);
@@ -146,7 +204,13 @@ export function ImageConvert() {
       );
       setResults(converted);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Conversion failed");
+      setError(
+        e instanceof Error && e.message === HEIC_PARSE_ERROR
+          ? t("images.errors.heicParseError")
+          : e instanceof Error
+            ? e.message
+            : "Conversion failed",
+      );
     } finally {
       setConverting(false);
     }
