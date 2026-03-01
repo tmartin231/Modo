@@ -1,4 +1,6 @@
 import heic2any from "heic2any";
+// @ts-expect-error utif has no type definitions
+import UTIF from "utif";
 
 /**
  * Erweiterte MIME → Dateiendung für alle unterstützten Bildformate.
@@ -20,9 +22,14 @@ export const MIME_TO_EXT: Record<string, string> = {
 };
 
 const HEIC_TYPES = ["image/heic", "image/heif"];
+const TIFF_TYPES = ["image/tiff"];
 
 export function isHeic(file: File): boolean {
   return HEIC_TYPES.includes(file.type);
+}
+
+export function isTiff(file: File): boolean {
+  return TIFF_TYPES.includes(file.type);
 }
 
 /** Fehlercode, wenn HEIC/HEIF nicht geparst werden kann (z. B. manche HEIF-Varianten). */
@@ -49,15 +56,59 @@ export function decodeHeicToBlob(file: File): Promise<Blob> {
     });
 }
 
+/** Fehlercode, wenn TIFF nicht geparst werden kann. */
+export const TIFF_PARSE_ERROR = "TIFF_PARSE_ERROR";
+
 /**
- * Datei für die Anzeige/Verarbeitung vorbereiten: HEIC → JPEG-Blob,
- * sonst die Originaldatei. Für HEIC wird ein neues File mit .jpg-Endung zurückgegeben.
+ * TIFF-Dateien im Browser dekodieren (Browser können TIFF nicht nativ in <img> laden).
+ * Gibt ein PNG-Blob zurück. Siehe https://github.com/photopea/UTIF.js
+ */
+export function decodeTiffToBlob(file: File): Promise<Blob> {
+  return file
+    .arrayBuffer()
+    .then((buffer) => {
+      const ifds = UTIF.decode(buffer);
+      if (!ifds || ifds.length === 0) throw new Error(TIFF_PARSE_ERROR);
+      const ifd = ifds[0];
+      UTIF.decodeImage(buffer, ifd);
+      const rgba = UTIF.toRGBA8(ifd);
+      const canvas = document.createElement("canvas");
+      canvas.width = ifd.width as number;
+      canvas.height = ifd.height as number;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) throw new Error(TIFF_PARSE_ERROR);
+      const imageData = ctx.createImageData(ifd.width as number, ifd.height as number);
+      imageData.data.set(rgba);
+      ctx.putImageData(imageData, 0, 0);
+      return new Promise<Blob>((resolve, reject) => {
+        canvas.toBlob(
+          (blob) => (blob ? resolve(blob) : reject(new Error(TIFF_PARSE_ERROR))),
+          "image/png",
+          0.92,
+        );
+      });
+    })
+    .catch((err) => {
+      if (err instanceof Error && err.message === TIFF_PARSE_ERROR) throw err;
+      throw new Error(TIFF_PARSE_ERROR);
+    });
+}
+
+/**
+ * Datei für die Anzeige/Verarbeitung vorbereiten:
+ * HEIC → JPEG, TIFF → PNG (Browser können diese nicht nativ in <img> laden),
+ * sonst die Originaldatei.
  */
 export async function decodeImageFile(file: File): Promise<File> {
   if (isHeic(file)) {
     const blob = await decodeHeicToBlob(file);
-    const baseName = file.name.replace(/\.[^.]+$/i, "");
-    return new File([blob], `${baseName}.jpg`, { type: "image/jpeg" });
+    const base = file.name.replace(/\.[^.]+$/i, "");
+    return new File([blob], `${base}.jpg`, { type: "image/jpeg" });
+  }
+  if (isTiff(file)) {
+    const blob = await decodeTiffToBlob(file);
+    const base = file.name.replace(/\.[^.]+$/i, "");
+    return new File([blob], `${base}.png`, { type: "image/png" });
   }
   return file;
 }

@@ -25,7 +25,8 @@
     "filesSelected_other": "{{count}} Dateien ausgewählt",
     "multipleHint": "– mehrere möglich",
     "errors": {
-      "heicParseError": "Diese HEIC/HEIF-Datei konnte nicht gelesen werden. Manche HEIF-Varianten werden im Browser nicht unterstützt – bitte eine andere Datei verwenden oder die Datei vorher z. B. auf dem iPhone in JPEG umwandeln."
+      "heicParseError": "Diese HEIC/HEIF-Datei konnte nicht gelesen werden. Manche HEIF-Varianten werden im Browser nicht unterstützt – bitte eine andere Datei verwenden oder die Datei vorher z. B. auf dem iPhone in JPEG umwandeln.",
+      "tiffParseError": "Diese TIFF-Datei konnte nicht gelesen werden. Manche TIFF-Varianten (z. B. bestimmte Komprimierungen) werden nicht unterstützt."
     },
     "convertPage": {
       "targetFormat": "Zielformat",

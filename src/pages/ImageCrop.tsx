@@ -14,6 +14,7 @@ import {
   decodeImageFile,
   getOutputMimeAndExt,
   HEIC_PARSE_ERROR,
+  TIFF_PARSE_ERROR,
 } from "@/lib/image-utils";
 import { Download, Crop } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -254,13 +255,15 @@ export function ImageCrop() {
       if (!blob) throw new Error("Crop failed");
       setResult({ blob, baseName: baseName(file.name), ext });
     } catch (e) {
-      setError(
+      const msg =
         e instanceof Error && e.message === HEIC_PARSE_ERROR
           ? t("images.errors.heicParseError")
-          : e instanceof Error
-            ? e.message
-            : "Crop failed",
-      );
+          : e instanceof Error && e.message === TIFF_PARSE_ERROR
+            ? t("images.errors.tiffParseError")
+            : e instanceof Error
+              ? e.message
+              : "Crop failed";
+      setError(msg);
     } finally {
       setCropping(false);
     }
