@@ -25,7 +25,8 @@ const categories = [
   {
     to: "/files",
     title: "Andere Dateien",
-    description: "MD, JSON, TXT, CSV und mehr – konvertieren und anpassen",
+    description:
+      "Markdown, JSON, TXT, CSV und mehr – konvertieren und anpassen",
     icon: FileCode,
     className:
       "from-amber-500/10 to-orange-500/10 border-amber-500/20 hover:border-amber-500/40",
