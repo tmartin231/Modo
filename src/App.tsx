@@ -2,6 +2,7 @@ import { Outlet, Route, Routes } from "react-router-dom";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Home } from "@/pages/Home";
+import { Images } from "@/pages/Images";
 import { Placeholder } from "@/pages/Placeholder";
 
 function Layout() {
@@ -21,9 +22,33 @@ function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route index element={<Home />} />
+        <Route path="images" element={<Images />} />
         <Route
-          path="images"
-          element={<Placeholder title="Bilder" />}
+          path="images/convert"
+          element={
+            <Placeholder titleKey="images.tools.convert.title" backTo="/images" />
+          }
+        />
+        <Route
+          path="images/compress"
+          element={
+            <Placeholder
+              titleKey="images.tools.compress.title"
+              backTo="/images"
+            />
+          }
+        />
+        <Route
+          path="images/resize"
+          element={
+            <Placeholder titleKey="images.tools.resize.title" backTo="/images" />
+          }
+        />
+        <Route
+          path="images/crop"
+          element={
+            <Placeholder titleKey="images.tools.crop.title" backTo="/images" />
+          }
         />
         <Route
           path="pdf"

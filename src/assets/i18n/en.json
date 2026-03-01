@@ -9,6 +9,28 @@
     "language": "Language",
     "chooseLanguage": "Choose language"
   },
+  "images": {
+    "title": "Images",
+    "subtitle": "Choose an action",
+    "tools": {
+      "convert": {
+        "title": "Convert image",
+        "description": "Change format, e.g. JPG → PNG or WebP"
+      },
+      "compress": {
+        "title": "Compress image",
+        "description": "Reduce file size, adjust quality"
+      },
+      "resize": {
+        "title": "Resize image",
+        "description": "Change dimensions and resolution"
+      },
+      "crop": {
+        "title": "Crop image",
+        "description": "Select and crop a region"
+      }
+    }
+  },
   "home": {
     "categories": {
       "images": {

@@ -9,6 +9,28 @@
     "language": "Sprache",
     "chooseLanguage": "Sprache wählen"
   },
+  "images": {
+    "title": "Bilder",
+    "subtitle": "Wähle eine Aktion",
+    "tools": {
+      "convert": {
+        "title": "Bild konvertieren",
+        "description": "Format wechseln, z. B. JPG → PNG oder WebP"
+      },
+      "compress": {
+        "title": "Bild komprimieren",
+        "description": "Dateigröße verkleinern, Qualität anpassen"
+      },
+      "resize": {
+        "title": "Bild skalieren",
+        "description": "Abmessungen und Auflösung ändern"
+      },
+      "crop": {
+        "title": "Bild zuschneiden",
+        "description": "Ausschnitt wählen und zuschneiden"
+      }
+    }
+  },
   "home": {
     "categories": {
       "images": {
