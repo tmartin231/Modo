@@ -1,0 +1,41 @@
+{
+  "common": {
+    "appName": "Modo",
+    "tagline": "Simple Convert"
+  },
+  "header": {
+    "themeLight": "Switch to light mode",
+    "themeDark": "Switch to dark mode",
+    "language": "Language",
+    "chooseLanguage": "Choose language"
+  },
+  "home": {
+    "categories": {
+      "images": {
+        "title": "Images",
+        "description": "JPG, PNG, WebP, GIF – convert, compress, adjust"
+      },
+      "pdf": {
+        "title": "PDF",
+        "description": "Create, merge, split PDFs or convert to other formats"
+      },
+      "files": {
+        "title": "Other files",
+        "description": "Markdown, JSON, TXT, CSV and more – convert and adjust"
+      }
+    }
+  },
+  "footer": {
+    "madeBy": "Made by Tom",
+    "feedback": "Feedback",
+    "github": "GitHub"
+  },
+  "placeholder": {
+    "comingSoon": "Coming soon.",
+    "backToOverview": "Back to overview"
+  },
+  "languages": {
+    "de": "Deutsch",
+    "en": "English"
+  }
+}

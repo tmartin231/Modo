@@ -1,0 +1,41 @@
+{
+  "common": {
+    "appName": "Modo",
+    "tagline": "Simple Convert"
+  },
+  "header": {
+    "themeLight": "Hellmodus aktivieren",
+    "themeDark": "Darkmodus aktivieren",
+    "language": "Sprache",
+    "chooseLanguage": "Sprache wählen"
+  },
+  "home": {
+    "categories": {
+      "images": {
+        "title": "Bilder",
+        "description": "JPG, PNG, WebP, GIF – konvertieren, komprimieren, anpassen"
+      },
+      "pdf": {
+        "title": "PDF",
+        "description": "PDF erstellen, zusammenführen, teilen oder in andere Formate umwandeln"
+      },
+      "files": {
+        "title": "Andere Dateien",
+        "description": "Markdown, JSON, TXT, CSV und mehr – konvertieren und anpassen"
+      }
+    }
+  },
+  "footer": {
+    "madeBy": "Made by Tom",
+    "feedback": "Feedback",
+    "github": "GitHub"
+  },
+  "placeholder": {
+    "comingSoon": "Bereich kommt demnächst.",
+    "backToOverview": "Zurück zur Übersicht"
+  },
+  "languages": {
+    "de": "Deutsch",
+    "en": "English"
+  }
+}

@@ -1,12 +1,12 @@
 import { FileCode, FileText, Image } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 const categories = [
   {
     to: "/images",
-    title: "Bilder",
-    description: "JPG, PNG, WebP, GIF – konvertieren, komprimieren, anpassen",
+    key: "images",
     icon: Image,
     className:
       "from-emerald-500/10 to-teal-500/10 border-emerald-500/20 hover:border-emerald-500/40",
@@ -14,9 +14,7 @@ const categories = [
   },
   {
     to: "/pdf",
-    title: "PDF",
-    description:
-      "PDF erstellen, zusammenführen, teilen oder in andere Formate umwandeln",
+    key: "pdf",
     icon: FileText,
     className:
       "from-rose-500/10 to-red-500/10 border-rose-500/20 hover:border-rose-500/40",
@@ -24,9 +22,7 @@ const categories = [
   },
   {
     to: "/files",
-    title: "Andere Dateien",
-    description:
-      "Markdown, JSON, TXT, CSV und mehr – konvertieren und anpassen",
+    key: "files",
     icon: FileCode,
     className:
       "from-amber-500/10 to-orange-500/10 border-amber-500/20 hover:border-amber-500/40",
@@ -35,9 +31,10 @@ const categories = [
 ] as const;
 
 export function Home() {
+  const { t } = useTranslation();
   return (
     <main className="flex">
-      <div className="flex flex-col items-center justify-center mx-auto">
+      <div className="mx-auto flex flex-col items-center justify-center">
         <img
           src="/modo_winky.png"
           alt=""
@@ -46,14 +43,7 @@ export function Home() {
         />
         <div className="relative z-10 flex w-full max-w-4xl flex-col gap-6 sm:-mt-34 md:flex-row">
           {categories.map(
-            ({
-              to,
-              title,
-              description,
-              icon: Icon,
-              className,
-              iconClassName,
-            }) => (
+            ({ to, key, icon: Icon, className, iconClassName }) => (
               <Link
                 key={to}
                 to={to}
@@ -72,8 +62,12 @@ export function Home() {
                 >
                   <Icon className="h-6 w-6" aria-hidden />
                 </div>
-                <h2 className="mb-2 text-lg font-semibold">{title}</h2>
-                <p className="text-sm text-muted-foreground">{description}</p>
+                <h2 className="mb-2 text-lg font-semibold">
+                  {t(`home.categories.${key}.title`)}
+                </h2>
+                <p className="text-sm text-muted-foreground">
+                  {t(`home.categories.${key}.description`)}
+                </p>
               </Link>
             ),
           )}
