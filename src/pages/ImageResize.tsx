@@ -196,18 +196,18 @@ export function ImageResize() {
         </CardHeader>
         <CardContent className="flex flex-col gap-6">
           <div className="space-y-2">
-            <Label>{t("images.resizePage.imageLabel")}</Label>
+            <Label>{t("images.imageLabel")}</Label>
             <FileDropzone
               multiple
               value={files}
               onFileChange={handleFileChange}
-              hint={t("images.resizePage.dropzoneHint")}
-              activeHint={t("images.resizePage.dropzoneActive")}
-              removeLabel={t("images.resizePage.removeFile")}
+              hint={t("images.dropzoneHint")}
+              activeHint={t("images.dropzoneActive")}
+              removeLabel={t("images.removeFile")}
               fileCountLabel={(count) =>
-                t("images.resizePage.filesSelected", { count })
+                t("images.filesSelected", { count })
               }
-              multipleHint={t("images.resizePage.multipleHint")}
+              multipleHint={t("images.multipleHint")}
             />
           </div>
 
@@ -249,7 +249,7 @@ export function ImageResize() {
             onClick={handleReset}
             disabled={files.length === 0 && results.length === 0}
           >
-            {t("images.resizePage.resetBtn")}
+            {t("images.resetBtn")}
           </Button>
         </CardFooter>
       </Card>
@@ -257,7 +257,7 @@ export function ImageResize() {
       {results.length > 0 && resultUrls.length === results.length && (
         <div className="mt-6 space-y-3">
           <p className="text-sm text-muted-foreground">
-            {t("images.resizePage.imagesReady", { count: results.length })}
+            {t("images.imagesReady", { count: results.length })}
           </p>
           <div className="flex flex-wrap gap-3">
             {results.length === 1 ? (
@@ -267,7 +267,7 @@ export function ImageResize() {
                 className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <Download className="h-4 w-4" aria-hidden />
-                {t("images.resizePage.downloadResult")}
+                {t("images.downloadResult")}
               </a>
             ) : (
               <Button
@@ -276,7 +276,7 @@ export function ImageResize() {
                 onClick={handleDownloadZip}
               >
                 <FileArchive className="h-4 w-4" aria-hidden />
-                {t("images.resizePage.downloadZip")}
+                {t("images.downloadZip")}
               </Button>
             )}
           </div>

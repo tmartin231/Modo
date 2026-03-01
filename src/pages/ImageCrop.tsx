@@ -297,14 +297,14 @@ export function ImageCrop() {
         </CardHeader>
         <CardContent className="flex flex-col gap-6">
           <div className="space-y-2">
-            <Label>{t("images.cropPage.imageLabel")}</Label>
+            <Label>{t("images.imageLabel")}</Label>
             <FileDropzone
               multiple={false}
               value={file}
               onFileChange={handleFileChange}
-              hint={t("images.cropPage.dropzoneHint")}
-              activeHint={t("images.cropPage.dropzoneActive")}
-              removeLabel={t("images.cropPage.removeFile")}
+              hint={t("images.dropzoneHint")}
+              activeHint={t("images.dropzoneActive")}
+              removeLabel={t("images.removeFile")}
             />
             <p className="text-xs text-muted-foreground">
               {t("images.cropPage.singleImageOnly")}
@@ -379,7 +379,7 @@ export function ImageCrop() {
             onClick={handleReset}
             disabled={!file && !result}
           >
-            {t("images.cropPage.resetBtn")}
+            {t("images.resetBtn")}
           </Button>
         </CardFooter>
       </Card>
@@ -387,7 +387,7 @@ export function ImageCrop() {
       {result && resultUrl && (
         <div className="mt-6 space-y-3">
           <p className="text-sm text-muted-foreground">
-            {t("images.resizePage.imagesReady_one")}
+            {t("images.imagesReady_one")}
           </p>
           <a
             href={resultUrl}
@@ -395,7 +395,7 @@ export function ImageCrop() {
             className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             <Download className="h-4 w-4" aria-hidden />
-            {t("images.cropPage.downloadResult")}
+            {t("images.downloadResult")}
           </a>
         </div>
       )}

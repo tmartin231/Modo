@@ -222,18 +222,18 @@ export function ImageConvert() {
       <Card>
         <CardContent className="flex flex-col gap-6">
           <div className="space-y-2">
-            <Label>{t("images.convertPage.imageLabel")}</Label>
+            <Label>{t("images.imageLabel")}</Label>
             <FileDropzone
               multiple
               value={files}
               onFileChange={handleFileChange}
-              hint={t("images.convertPage.dropzoneHint")}
-              activeHint={t("images.convertPage.dropzoneActive")}
-              removeLabel={t("images.convertPage.removeFile")}
+              hint={t("images.dropzoneHint")}
+              activeHint={t("images.dropzoneActive")}
+              removeLabel={t("images.removeFile")}
               fileCountLabel={(count) =>
-                t("images.convertPage.filesSelected", { count })
+                t("images.filesSelected", { count })
               }
-              multipleHint={t("images.convertPage.multipleHint")}
+              multipleHint={t("images.multipleHint")}
             />
           </div>
 
@@ -275,7 +275,7 @@ export function ImageConvert() {
             onClick={handleReset}
             disabled={files.length === 0 && results.length === 0}
           >
-            {t("images.convertPage.resetBtn")}
+            {t("images.resetBtn")}
           </Button>
         </CardFooter>
       </Card>
@@ -283,7 +283,7 @@ export function ImageConvert() {
       {results.length > 0 && resultUrls.length === results.length && (
         <div className="mt-6 space-y-3">
           <p className="text-sm text-muted-foreground">
-            {t("images.convertPage.imagesReady", { count: results.length })}
+            {t("images.imagesReady", { count: results.length })}
           </p>
           <div className="flex flex-wrap gap-3">
             {results.length === 1 ? (
@@ -293,7 +293,7 @@ export function ImageConvert() {
                 className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <Download className="h-4 w-4" aria-hidden />
-                {t("images.convertPage.downloadResult")}
+                {t("images.downloadResult")}
               </a>
             ) : (
               <Button
@@ -302,7 +302,7 @@ export function ImageConvert() {
                 onClick={handleDownloadZip}
               >
                 <FileArchive className="h-4 w-4" aria-hidden />
-                {t("images.convertPage.downloadZip")}
+                {t("images.downloadZip")}
               </Button>
             )}
           </div>
