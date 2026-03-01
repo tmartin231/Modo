@@ -117,7 +117,7 @@ export function ImageResize() {
     } finally {
       setResizing(false);
     }
-  }, [files, scale]);
+  }, [files, scale, t]);
 
   const handleReset = useCallback(() => {
     setFiles([]);
@@ -199,26 +199,55 @@ export function ImageResize() {
               hint={t("images.dropzoneHint")}
               activeHint={t("images.dropzoneActive")}
               removeLabel={t("images.removeFile")}
-              fileCountLabel={(count) =>
-                t("images.filesSelected", { count })
-              }
+              fileCountLabel={(count) => t("images.filesSelected", { count })}
               multipleHint={t("images.multipleHint")}
             />
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="scale">{t("images.resizePage.scaleLabel")}</Label>
-            <div className="flex items-center gap-3">
-              <input
-                id="scale"
-                type="number"
-                min={1}
-                max={200}
-                value={scale}
-                onChange={(e) => setScale(Number(e.target.value) || 100)}
-                className="h-9 w-24 rounded-md border border-input bg-background px-3 py-1 text-sm tabular-nums"
-              />
-              <span className="text-muted-foreground">%</span>
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center gap-3">
+                <input
+                  id="scale"
+                  type="range"
+                  min={1}
+                  max={200}
+                  value={scale}
+                  onChange={(e) => setScale(Number(e.target.value))}
+                  className="h-2 flex-1 accent-primary"
+                  aria-valuemin={1}
+                  aria-valuemax={200}
+                  aria-valuenow={scale}
+                />
+                <input
+                  type="number"
+                  min={1}
+                  max={200}
+                  value={scale}
+                  onChange={(e) => {
+                    const v = Number(e.target.value);
+                    if (!Number.isNaN(v))
+                      setScale(Math.max(1, Math.min(200, v)));
+                  }}
+                  className="h-9 w-16 rounded-md border border-input bg-background px-2 py-1 text-center text-sm tabular-nums"
+                  aria-label={t("images.resizePage.scaleLabel")}
+                />
+                <span className="w-8 text-sm text-muted-foreground">%</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {[50, 100, 150, 200].map((p) => (
+                  <Button
+                    key={p}
+                    type="button"
+                    variant={scale === p ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setScale(p)}
+                  >
+                    {p}%
+                  </Button>
+                ))}
+              </div>
             </div>
             <p className="text-xs text-muted-foreground">
               {t("images.resizePage.scaleHint")}

@@ -16,12 +16,7 @@ import {
   HEIC_PARSE_ERROR,
 } from "@/lib/image-utils";
 import { Download, Crop } from "lucide-react";
-import {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
@@ -31,13 +26,25 @@ export function ImageCrop() {
   const { t } = useTranslation();
   const [file, setFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [naturalSize, setNaturalSize] = useState<{ w: number; h: number } | null>(null);
-  const [containerSize, setContainerSize] = useState<{ w: number; h: number }>({ w: 0, h: 0 });
+  const [naturalSize, setNaturalSize] = useState<{
+    w: number;
+    h: number;
+  } | null>(null);
+  const [containerSize, setContainerSize] = useState<{ w: number; h: number }>({
+    w: 0,
+    h: 0,
+  });
   const [cropRect, setCropRect] = useState<CropRect | null>(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [dragStart, setDragStart] = useState<{ x: number; y: number } | null>(null);
+  const [dragStart, setDragStart] = useState<{ x: number; y: number } | null>(
+    null,
+  );
   const [dragEnd, setDragEnd] = useState<{ x: number; y: number } | null>(null);
-  const [result, setResult] = useState<{ blob: Blob; baseName: string; ext: string } | null>(null);
+  const [result, setResult] = useState<{
+    blob: Blob;
+    baseName: string;
+    ext: string;
+  } | null>(null);
   const [resultUrl, setResultUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [cropping, setCropping] = useState(false);
@@ -79,7 +86,11 @@ export function ImageCrop() {
         setImageUrl(objectUrlRef.current);
       })
       .catch((err) => {
-        if (!cancelled && err instanceof Error && err.message === HEIC_PARSE_ERROR) {
+        if (
+          !cancelled &&
+          err instanceof Error &&
+          err.message === HEIC_PARSE_ERROR
+        ) {
           setError(t("images.errors.heicParseError"));
         }
       });
@@ -90,7 +101,7 @@ export function ImageCrop() {
         objectUrlRef.current = null;
       }
     };
-  }, [file]);
+  }, [file, t]);
 
   useEffect(() => {
     if (!result) {
@@ -115,7 +126,10 @@ export function ImageCrop() {
     const el = containerRef.current;
     if (!el) return;
     const ro = new ResizeObserver((entries) => {
-      const { width, height } = entries[0]?.contentRect ?? { width: 0, height: 0 };
+      const { width, height } = entries[0]?.contentRect ?? {
+        width: 0,
+        height: 0,
+      };
       setContainerSize({ w: width, h: height });
     });
     ro.observe(el);
@@ -123,8 +137,12 @@ export function ImageCrop() {
   }, [imageUrl]);
 
   const getScaleAndOffset = useCallback(() => {
-    if (!naturalSize || containerSize.w <= 0 || containerSize.h <= 0) return null;
-    const scale = Math.min(containerSize.w / naturalSize.w, containerSize.h / naturalSize.h);
+    if (!naturalSize || containerSize.w <= 0 || containerSize.h <= 0)
+      return null;
+    const scale = Math.min(
+      containerSize.w / naturalSize.w,
+      containerSize.h / naturalSize.h,
+    );
     const displayW = naturalSize.w * scale;
     const displayH = naturalSize.h * scale;
     const offsetX = (containerSize.w - displayW) / 2;
@@ -221,8 +239,14 @@ export function ImageCrop() {
       if (!ctx) throw new Error("Canvas not supported");
       ctx.drawImage(
         img,
-        cropRect.x, cropRect.y, cropRect.w, cropRect.h,
-        0, 0, cropRect.w, cropRect.h,
+        cropRect.x,
+        cropRect.y,
+        cropRect.w,
+        cropRect.h,
+        0,
+        0,
+        cropRect.w,
+        cropRect.h,
       );
       const blob = await new Promise<Blob | null>((resolve) =>
         canvas.toBlob((b) => resolve(b), mime, 0.92),
@@ -240,7 +264,7 @@ export function ImageCrop() {
     } finally {
       setCropping(false);
     }
-  }, [file, cropRect]);
+  }, [file, cropRect, t]);
 
   const handleReset = useCallback(() => {
     setFile(null);
@@ -257,14 +281,15 @@ export function ImageCrop() {
   }, []);
 
   const so = getScaleAndOffset();
-  const displayCrop = cropRect && so
-    ? {
-        left: so.offsetX + cropRect.x * so.scale,
-        top: so.offsetY + cropRect.y * so.scale,
-        width: cropRect.w * so.scale,
-        height: cropRect.h * so.scale,
-      }
-    : null;
+  const displayCrop =
+    cropRect && so
+      ? {
+          left: so.offsetX + cropRect.x * so.scale,
+          top: so.offsetY + cropRect.y * so.scale,
+          width: cropRect.w * so.scale,
+          height: cropRect.h * so.scale,
+        }
+      : null;
   const dragRect =
     isDragging && dragStart && dragEnd
       ? {

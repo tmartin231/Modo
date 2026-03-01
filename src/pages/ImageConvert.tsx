@@ -143,9 +143,9 @@ function blobToTarget(blob: Blob, targetMime: string): Promise<Blob> {
 
 function convertImage(file: File, targetMime: string): Promise<Blob> {
   if (file.type === "image/svg+xml") {
-    return file.text().then((svgContent) =>
-      convertSvgToBlob(svgContent, targetMime),
-    );
+    return file
+      .text()
+      .then((svgContent) => convertSvgToBlob(svgContent, targetMime));
   }
 
   if (isHeic(file)) {
@@ -214,7 +214,7 @@ export function ImageConvert() {
     } finally {
       setConverting(false);
     }
-  }, [files, targetFormat]);
+  }, [files, targetFormat, t]);
 
   const handleReset = useCallback(() => {
     setFiles([]);
@@ -294,9 +294,7 @@ export function ImageConvert() {
               hint={t("images.dropzoneHint")}
               activeHint={t("images.dropzoneActive")}
               removeLabel={t("images.removeFile")}
-              fileCountLabel={(count) =>
-                t("images.filesSelected", { count })
-              }
+              fileCountLabel={(count) => t("images.filesSelected", { count })}
               multipleHint={t("images.multipleHint")}
             />
           </div>
