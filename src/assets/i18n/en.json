@@ -54,6 +54,23 @@
       "savings": "From {{from}} to {{to}} ({{percent}}% smaller)",
       "savingsLarger": "From {{from}} to {{to}} ({{percent}}% larger)"
     },
+    "resizePage": {
+      "dropzoneHint": "Drag image here or click to select",
+      "dropzoneActive": "Drop to upload",
+      "scaleLabel": "Scale",
+      "scaleHint": "100 = original size, 50 = half, 200 = double",
+      "resizeBtn": "Resize",
+      "resetBtn": "Reset",
+      "removeFile": "Remove",
+      "imageLabel": "Image",
+      "downloadResult": "Download",
+      "downloadZip": "Download all as ZIP",
+      "imagesReady_one": "1 image ready for download",
+      "imagesReady_other": "{{count}} images ready for download",
+      "filesSelected_one": "1 file selected",
+      "filesSelected_other": "{{count}} files selected",
+      "multipleHint": "– multiple allowed"
+    },
     "tools": {
       "convert": {
         "title": "Convert image",
