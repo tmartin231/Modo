@@ -117,8 +117,12 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    }
+    transition:
+      background-color 0.3s ease-in-out,
+      color 0.3s ease-in-out,
+      border-color 0.3s ease-in-out;
+  }
   body {
     @apply bg-background text-foreground;
-    }
+  }
 }
