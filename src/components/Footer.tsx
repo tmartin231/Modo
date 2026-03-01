@@ -11,7 +11,6 @@ export function Footer() {
   return (
     <footer className="mt-auto border-t border-border/80 bg-muted/30 py-6">
       <div className="mx-auto flex max-w-[1820px] flex-row items-center justify-center gap-4 px-6">
-        <p className="text-sm text-muted-foreground">{t("footer.madeBy")}</p>
         <a
           href="https://github.com/tmartin231/Modo"
           target="_blank"

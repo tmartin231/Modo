@@ -35,6 +35,25 @@
         "gif": "GIF"
       }
     },
+    "compressPage": {
+      "dropzoneHint": "Bild hierher ziehen oder Klicken zum Auswählen",
+      "dropzoneActive": "Loslassen zum Hochladen",
+      "qualityLabel": "Qualität (niedriger = kleinere Datei)",
+      "compressBtn": "Komprimieren",
+      "resetBtn": "Zurücksetzen",
+      "removeFile": "Entfernen",
+      "imageLabel": "Bild",
+      "downloadResult": "Herunterladen",
+      "downloadZip": "Alle als ZIP herunterladen",
+      "imagesReady_one": "1 Bild zum Download bereit",
+      "imagesReady_other": "{{count}} Bilder zum Download bereit",
+      "filesSelected_one": "1 Datei ausgewählt",
+      "filesSelected_other": "{{count}} Dateien ausgewählt",
+      "multipleHint": "– mehrere möglich",
+      "outputFormat": "Ausgabe: JPEG/WebP = gleiches Format. PNG/GIF/SVG = WebP (damit die Qualität die Größe steuert).",
+      "savings": "Von {{from}} auf {{to}} ({{percent}} % kleiner)",
+      "savingsLarger": "Von {{from}} auf {{to}} ({{percent}} % größer)"
+    },
     "tools": {
       "convert": {
         "title": "Bild konvertieren",
@@ -71,7 +90,6 @@
     }
   },
   "footer": {
-    "madeBy": "Made by Tom",
     "feedback": "Feedback",
     "github": "GitHub"
   },
