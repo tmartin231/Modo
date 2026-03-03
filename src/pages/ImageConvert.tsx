@@ -9,12 +9,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import {
-  baseName,
-  decodeImageFile,
-  HEIC_PARSE_ERROR,
-  TIFF_PARSE_ERROR,
-} from "@/lib/image-utils";
+import { baseName, decodeImageFile, TIFF_PARSE_ERROR } from "@/lib/image-utils";
 import { ArrowLeftRight, Download, FileArchive } from "lucide-react";
 import JSZip from "jszip";
 import { useCallback, useEffect, useState } from "react";
@@ -151,13 +146,11 @@ export function ImageConvert() {
       setResults(converted);
     } catch (e) {
       const msg =
-        e instanceof Error && e.message === HEIC_PARSE_ERROR
-          ? t("images.errors.heicParseError")
-          : e instanceof Error && e.message === TIFF_PARSE_ERROR
-            ? t("images.errors.tiffParseError")
-            : e instanceof Error
-              ? e.message
-              : "Conversion failed";
+        e instanceof Error && e.message === TIFF_PARSE_ERROR
+          ? t("images.errors.tiffParseError")
+          : e instanceof Error
+            ? e.message
+            : "Conversion failed";
       setError(msg);
     } finally {
       setConverting(false);

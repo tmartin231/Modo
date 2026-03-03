@@ -13,7 +13,6 @@ import {
   baseName,
   decodeImageFile,
   getOutputMimeAndExt,
-  HEIC_PARSE_ERROR,
   TIFF_PARSE_ERROR,
 } from "@/lib/image-utils";
 import { Download, Crop } from "lucide-react";
@@ -54,7 +53,7 @@ export function ImageCrop() {
   const imgRef = useRef<HTMLImageElement>(null);
   const objectUrlRef = useRef<string | null>(null);
 
-  // Create/revoke image URL when file changes (HEIC wird zu JPEG dekodiert)
+  // Create/revoke image URL when file changes
   useEffect(() => {
     if (!file) {
       if (objectUrlRef.current) {
@@ -87,12 +86,8 @@ export function ImageCrop() {
         setImageUrl(objectUrlRef.current);
       })
       .catch((err) => {
-        if (
-          !cancelled &&
-          err instanceof Error &&
-          err.message === HEIC_PARSE_ERROR
-        ) {
-          setError(t("images.errors.heicParseError"));
+        if (!cancelled && err instanceof Error && err.message === TIFF_PARSE_ERROR) {
+          setError(t("images.errors.tiffParseError"));
         }
       });
     return () => {
@@ -256,13 +251,11 @@ export function ImageCrop() {
       setResult({ blob, baseName: baseName(file.name), ext });
     } catch (e) {
       const msg =
-        e instanceof Error && e.message === HEIC_PARSE_ERROR
-          ? t("images.errors.heicParseError")
-          : e instanceof Error && e.message === TIFF_PARSE_ERROR
-            ? t("images.errors.tiffParseError")
-            : e instanceof Error
-              ? e.message
-              : "Crop failed";
+        e instanceof Error && e.message === TIFF_PARSE_ERROR
+          ? t("images.errors.tiffParseError")
+          : e instanceof Error
+            ? e.message
+            : "Crop failed";
       setError(msg);
     } finally {
       setCropping(false);

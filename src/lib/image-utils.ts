@@ -1,4 +1,3 @@
-import heic2any from "heic2any";
 // @ts-expect-error utif has no type definitions
 import UTIF from "utif";
 
@@ -12,8 +11,6 @@ export const MIME_TO_EXT: Record<string, string> = {
   "image/webp": "webp",
   "image/gif": "gif",
   "image/avif": "avif",
-  "image/heic": "heic",
-  "image/heif": "heif",
   "image/svg+xml": "svg",
   "image/x-icon": "ico",
   "image/vnd.microsoft.icon": "ico",
@@ -21,39 +18,10 @@ export const MIME_TO_EXT: Record<string, string> = {
   "image/bmp": "bmp",
 };
 
-const HEIC_TYPES = ["image/heic", "image/heif"];
 const TIFF_TYPES = ["image/tiff"];
-
-export function isHeic(file: File): boolean {
-  return HEIC_TYPES.includes(file.type);
-}
 
 export function isTiff(file: File): boolean {
   return TIFF_TYPES.includes(file.type);
-}
-
-/** Fehlercode, wenn HEIC/HEIF nicht geparst werden kann (z. B. manche HEIF-Varianten). */
-export const HEIC_PARSE_ERROR = "HEIC_PARSE_ERROR";
-
-/**
- * HEIC/HEIF-Dateien im Browser dekodieren (z. B. iPhone-Fotos).
- * Gibt ein JPEG-Blob zurück, das in <img> und Canvas genutzt werden kann.
- * Wirft HEIC_PARSE_ERROR, wenn die Datei nicht gelesen werden kann.
- */
-export function decodeHeicToBlob(file: File): Promise<Blob> {
-  return heic2any({
-    blob: file,
-    toType: "image/jpeg",
-    quality: 0.92,
-  })
-    .then((result) => {
-      const blob = Array.isArray(result) ? result[0] : result;
-      if (!blob || !(blob instanceof Blob)) throw new Error(HEIC_PARSE_ERROR);
-      return blob;
-    })
-    .catch(() => {
-      throw new Error(HEIC_PARSE_ERROR);
-    });
 }
 
 /** Fehlercode, wenn TIFF nicht geparst werden kann. */
@@ -96,15 +64,10 @@ export function decodeTiffToBlob(file: File): Promise<Blob> {
 
 /**
  * Datei für die Anzeige/Verarbeitung vorbereiten:
- * HEIC → JPEG, TIFF → PNG (Browser können diese nicht nativ in <img> laden),
+ * TIFF → PNG (Browser können TIFF nicht nativ in <img> laden),
  * sonst die Originaldatei.
  */
 export async function decodeImageFile(file: File): Promise<File> {
-  if (isHeic(file)) {
-    const blob = await decodeHeicToBlob(file);
-    const base = file.name.replace(/\.[^.]+$/i, "");
-    return new File([blob], `${base}.jpg`, { type: "image/jpeg" });
-  }
   if (isTiff(file)) {
     const blob = await decodeTiffToBlob(file);
     const base = file.name.replace(/\.[^.]+$/i, "");
@@ -117,7 +80,7 @@ export type OutputFormatContext = "convert" | "compress" | "resize" | "crop";
 
 /**
  * Ausgabe-MIME und Endung je nach Kontext.
- * - convert: Originalformat beibehalten (außer SVG→PNG, HEIC→JPEG).
+ * - convert: Originalformat beibehalten (außer SVG→PNG).
  * - compress: JPEG/WebP unverändert; PNG/GIF/SVG → WebP (Qualität steuert Größe).
  * - resize/crop: wie convert.
  */
@@ -126,7 +89,6 @@ export function getOutputMimeAndExt(
   context: OutputFormatContext = "convert",
 ): { mime: string; ext: string } {
   if (file.type === "image/svg+xml") return { mime: "image/png", ext: "png" };
-  if (isHeic(file)) return { mime: "image/jpeg", ext: "jpg" };
 
   if (context === "compress") {
     if (file.type === "image/png" || file.type === "image/gif") {

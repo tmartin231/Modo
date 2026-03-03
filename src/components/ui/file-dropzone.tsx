@@ -10,8 +10,6 @@ const ACCEPT_IMAGE = {
   "image/webp": [".webp"],
   "image/gif": [".gif"],
   "image/avif": [".avif"],
-  "image/heic": [".heic"],
-  "image/heif": [".heif"],
   "image/svg+xml": [".svg"],
   "image/x-icon": [".ico"],
   "image/vnd.microsoft.icon": [".ico"],

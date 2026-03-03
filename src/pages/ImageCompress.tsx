@@ -6,7 +6,6 @@ import {
   baseName,
   decodeImageFile,
   getOutputMimeAndExt,
-  HEIC_PARSE_ERROR,
   TIFF_PARSE_ERROR,
 } from "@/lib/image-utils";
 import { Download, FileArchive, Shrink } from "lucide-react";
@@ -118,13 +117,11 @@ export function ImageCompress() {
       setResults(converted);
     } catch (e) {
       const msg =
-        e instanceof Error && e.message === HEIC_PARSE_ERROR
-          ? t("images.errors.heicParseError")
-          : e instanceof Error && e.message === TIFF_PARSE_ERROR
-            ? t("images.errors.tiffParseError")
-            : e instanceof Error
-              ? e.message
-              : "Compression failed";
+        e instanceof Error && e.message === TIFF_PARSE_ERROR
+          ? t("images.errors.tiffParseError")
+          : e instanceof Error
+            ? e.message
+            : "Compression failed";
       setError(msg);
     } finally {
       setCompressing(false);
