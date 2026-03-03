@@ -131,6 +131,10 @@
       "convert": {
         "title": "Convert PDF",
         "description": "Convert PDF into other formats like images or text."
+      },
+      "toPdf": {
+        "title": "Convert to PDF",
+        "description": "Turn images, HTML or text into PDF documents."
       }
     },
     "convertPage": {
@@ -153,6 +157,27 @@
       "resetBtn": "Reset",
       "resultReady": "Converted file ready for download",
       "downloadResult": "Download file"
+    },
+    "toPdfPage": {
+      "title": "Convert to PDF",
+      "description": "Convert images, HTML or text into PDFs – all in the browser.",
+      "fileLabel": "Source file",
+      "dropzoneHint": "Drop a file here or click to select",
+      "dropzoneActive": "Drop to upload",
+      "targetLabel": "Source type",
+      "targets": {
+        "image": "Image to PDF (PNG/JPG etc.)",
+        "svg": "SVG to PDF",
+        "html": "HTML to PDF (text only)",
+        "text": "Text to PDF (TXT/Markdown)",
+        "docx": "Word to PDF (DOCX)",
+        "pptx": "PowerPoint to PDF (PPTX)"
+      },
+      "convertBtn": "Convert to PDF",
+      "resetBtn": "Reset",
+      "resultReady": "PDF ready for download",
+      "downloadResult": "Download PDF",
+      "unsupportedCombination": "This combination of file type and selected source is not supported yet."
     },
     "splitPage": {
       "title": "Split PDF",

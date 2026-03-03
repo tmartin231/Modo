@@ -29,6 +29,14 @@ const PDF_TOOLS = [
       "from-violet-500/10 to-purple-500/10 border-violet-500/20 hover:border-violet-500/40",
     iconClassName: "text-violet-600 dark:text-violet-400",
   },
+  {
+    key: "toPdf",
+    to: "/pdf/to-pdf",
+    icon: FileInput,
+    className:
+      "from-rose-500/10 to-orange-500/10 border-rose-500/20 hover:border-rose-500/40",
+    iconClassName: "text-rose-600 dark:text-rose-400",
+  },
 ] as const;
 
 export function Pdf() {

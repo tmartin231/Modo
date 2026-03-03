@@ -131,6 +131,10 @@
       "convert": {
         "title": "PDF konvertieren",
         "description": "PDF in andere Formate wie Bilder oder Text umwandeln."
+      },
+      "toPdf": {
+        "title": "In PDF umwandeln",
+        "description": "Bilder, HTML oder Text in PDF-Dokumente umwandeln."
       }
     },
     "convertPage": {
@@ -153,6 +157,27 @@
       "resetBtn": "Zurücksetzen",
       "resultReady": "Konvertierte Datei zum Download bereit",
       "downloadResult": "Datei herunterladen"
+    },
+    "toPdfPage": {
+      "title": "In PDF umwandeln",
+      "description": "Wandle Bilder, HTML oder Text in PDFs um – komplett im Browser.",
+      "fileLabel": "Quelldatei",
+      "dropzoneHint": "Datei hierher ziehen oder Klicken zum Auswählen",
+      "dropzoneActive": "Loslassen zum Hochladen",
+      "targetLabel": "Quelle",
+      "targets": {
+        "image": "Bild in PDF (PNG/JPG usw.)",
+        "svg": "SVG in PDF",
+        "html": "HTML in PDF (Textauszug)",
+        "text": "Text in PDF (TXT/Markdown)",
+        "docx": "Word in PDF (DOCX)",
+        "pptx": "PowerPoint in PDF (PPTX)"
+      },
+      "convertBtn": "In PDF umwandeln",
+      "resetBtn": "Zurücksetzen",
+      "resultReady": "PDF zum Download bereit",
+      "downloadResult": "PDF herunterladen",
+      "unsupportedCombination": "Diese Kombination aus Dateityp und gewählter Quelle wird noch nicht unterstützt."
     },
     "splitPage": {
       "title": "PDF teilen",

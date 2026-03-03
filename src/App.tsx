@@ -12,6 +12,7 @@ import { Pdf } from "@/pages/Pdf";
 import { PdfMerge } from "@/pages/PdfMerge";
 import { PdfSplit } from "@/pages/PdfSplit";
 import { PdfConvert } from "@/pages/PdfConvert";
+import { PdfToPdf } from "@/pages/PdfToPdf";
 
 function Layout() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="pdf/merge" element={<PdfMerge />} />
         <Route path="pdf/split" element={<PdfSplit />} />
         <Route path="pdf/convert" element={<PdfConvert />} />
+        <Route path="pdf/to-pdf" element={<PdfToPdf />} />
         <Route path="files" element={<Files />} />
       </Route>
     </Routes>
