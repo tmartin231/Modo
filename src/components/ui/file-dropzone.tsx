@@ -27,6 +27,7 @@ export type FileDropzoneProps = {
   hint: string;
   activeHint?: string;
   removeLabel?: string;
+  addMoreLabel?: string;
   fileCountLabel?: (count: number) => string;
   multipleHint?: string;
 };
@@ -41,6 +42,7 @@ export function FileDropzone({
   hint,
   activeHint,
   removeLabel = "Remove",
+  addMoreLabel,
   fileCountLabel,
   multipleHint,
 }: FileDropzoneProps) {
@@ -177,16 +179,30 @@ export function FileDropzone({
               ))}
             </ul>
             {!disabled && (
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onFileChange?.(null);
-                }}
-                className="text-primary text-sm underline underline-offset-2 hover:no-underline"
-              >
-                {removeLabel} {displayFiles.length > 1 ? "alle" : ""}
-              </button>
+              <div className="flex flex-wrap items-center justify-center gap-3 text-sm">
+                {multiple && addMoreLabel && (
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      inputRef.current?.click();
+                    }}
+                    className="text-primary underline underline-offset-2 hover:no-underline"
+                  >
+                    {addMoreLabel}
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onFileChange?.(null);
+                  }}
+                  className="text-primary underline underline-offset-2 hover:no-underline"
+                >
+                  {removeLabel} {displayFiles.length > 1 ? "alle" : ""}
+                </button>
+              </div>
             )}
           </div>
         ) : (

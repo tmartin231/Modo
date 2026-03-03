@@ -15,6 +15,7 @@
     "dropzoneHint": "Drag image here or click to select",
     "dropzoneActive": "Drop to upload",
     "removeFile": "Remove",
+    "addMoreFiles": "Add more",
     "imageLabel": "Image",
     "downloadResult": "Download",
     "resetBtn": "Reset",
@@ -131,6 +132,19 @@
         "title": "Convert PDF",
         "description": "Convert PDF into other formats like images or text."
       }
+    },
+    "mergePage": {
+      "description": "Select multiple PDF files and arrange them in the desired order.",
+      "fileLabel": "PDF files",
+      "dropzoneHint": "Drop PDF files here or click to select",
+      "dropzoneActive": "Drop to upload",
+      "orderLabel": "Order",
+      "mergeBtn": "Merge",
+      "resetBtn": "Reset",
+      "resultReady": "Merged PDF ready for download",
+      "downloadResult": "Download PDF",
+      "moveUp": "Move up",
+      "moveDown": "Move down"
     }
   },
   "footer": {

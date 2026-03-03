@@ -343,6 +343,7 @@ export function Files() {
             <FileDropzone
               multiple
               value={files}
+              addMoreLabel={t("images.addMoreFiles")}
               onFileChange={handleFileChange}
               accept={{
                 "application/json": [".json"],

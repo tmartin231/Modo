@@ -15,6 +15,7 @@
     "dropzoneHint": "Bild hierher ziehen oder Klicken zum Auswählen",
     "dropzoneActive": "Loslassen zum Hochladen",
     "removeFile": "Entfernen",
+    "addMoreFiles": "Weitere hinzufügen",
     "imageLabel": "Bild",
     "downloadResult": "Herunterladen",
     "resetBtn": "Zurücksetzen",
@@ -131,6 +132,19 @@
         "title": "PDF konvertieren",
         "description": "PDF in andere Formate wie Bilder oder Text umwandeln."
       }
+    },
+    "mergePage": {
+      "description": "Wähle mehrere PDF-Dateien und ordne sie in der gewünschten Reihenfolge an.",
+      "fileLabel": "PDF-Dateien",
+      "dropzoneHint": "PDF-Dateien hierher ziehen oder Klicken zum Auswählen",
+      "dropzoneActive": "Loslassen zum Hochladen",
+      "orderLabel": "Reihenfolge",
+      "mergeBtn": "Zusammenführen",
+      "resetBtn": "Zurücksetzen",
+      "resultReady": "Zusammengeführtes PDF zum Download bereit",
+      "downloadResult": "PDF herunterladen",
+      "moveUp": "Nach oben verschieben",
+      "moveDown": "Nach unten verschieben"
     }
   },
   "footer": {

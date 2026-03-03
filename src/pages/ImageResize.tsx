@@ -190,6 +190,7 @@ export function ImageResize() {
             <FileDropzone
               multiple
               value={files}
+              addMoreLabel={t("images.addMoreFiles")}
               onFileChange={handleFileChange}
               hint={t("images.dropzoneHint")}
               activeHint={t("images.dropzoneActive")}

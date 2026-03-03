@@ -143,7 +143,7 @@ export function ImageCompress() {
     } finally {
       setCompressing(false);
     }
-  }, [files, quality]);
+  }, [files, quality, t]);
 
   const handleReset = useCallback(() => {
     setFiles([]);
@@ -216,6 +216,7 @@ export function ImageCompress() {
             <FileDropzone
               multiple
               value={files}
+              addMoreLabel={t("images.addMoreFiles")}
               onFileChange={handleFileChange}
               hint={t("images.dropzoneHint")}
               activeHint={t("images.dropzoneActive")}
