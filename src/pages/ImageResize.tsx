@@ -16,6 +16,7 @@ import {
   getOutputMimeAndExt,
   TIFF_PARSE_ERROR,
 } from "@/lib/image-utils";
+import { incrementFeatureUsage } from "@/lib/usage-tracking";
 import { Download, FileArchive, Maximize2 } from "lucide-react";
 import JSZip from "jszip";
 import { useCallback, useEffect, useState } from "react";
@@ -91,6 +92,10 @@ export function ImageResize() {
   >([]);
   const [error, setError] = useState<string | null>(null);
   const [resizing, setResizing] = useState(false);
+
+  useEffect(() => {
+    incrementFeatureUsage("images.resize");
+  }, []);
 
   const handleResize = useCallback(async () => {
     if (files.length === 0) return;

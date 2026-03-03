@@ -14,6 +14,7 @@ import { PDFDocument } from "pdf-lib";
 import { Download, ListOrdered } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { incrementFeatureUsage } from "@/lib/usage-tracking";
 
 type PdfItem = {
   file: File;
@@ -33,6 +34,10 @@ export function PdfMerge() {
   const [error, setError] = useState<string | null>(null);
   const [resultUrl, setResultUrl] = useState<string | null>(null);
   const [resultFilename, setResultFilename] = useState<string>("merged.pdf");
+
+  useEffect(() => {
+    incrementFeatureUsage("pdf.merge");
+  }, []);
 
   const onFileChange = useCallback((v: File | File[] | null) => {
     if (v === null) {

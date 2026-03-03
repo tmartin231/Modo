@@ -17,6 +17,7 @@ import { Download, FileArchive, FileCode } from "lucide-react";
 import JSZip from "jszip";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { incrementFeatureUsage } from "@/lib/usage-tracking";
 
 type TextFormat = "json" | "csv" | "md" | "yaml" | "xml";
 
@@ -233,6 +234,10 @@ export function Files() {
   const [resultUrls, setResultUrls] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [converting, setConverting] = useState(false);
+
+  useEffect(() => {
+    incrementFeatureUsage("files.convert");
+  }, []);
 
   const handleFileChange = useCallback((v: File | File[] | null) => {
     if (v === null) setFiles([]);

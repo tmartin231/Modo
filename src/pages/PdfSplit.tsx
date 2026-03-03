@@ -19,6 +19,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import JSZip from "jszip";
 import { cn } from "@/lib/utils";
+import { incrementFeatureUsage } from "@/lib/usage-tracking";
 
 const THUMB_SCALE = 0.4;
 const THUMB_MAX_WIDTH = 120;
@@ -79,6 +80,10 @@ export function PdfSplit() {
   }, []);
 
   // PDF laden: Seitenzahl + Thumbnails
+  useEffect(() => {
+    incrementFeatureUsage("pdf.split");
+  }, []);
+
   useEffect(() => {
     if (!file) return;
     let cancelled = false;

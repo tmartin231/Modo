@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { baseName, decodeImageFile, TIFF_PARSE_ERROR } from "@/lib/image-utils";
+import { incrementFeatureUsage } from "@/lib/usage-tracking";
 import { ArrowLeftRight, Download, FileArchive } from "lucide-react";
 import JSZip from "jszip";
 import { useCallback, useEffect, useState } from "react";
@@ -129,6 +130,10 @@ export function ImageConvert() {
   );
   const [error, setError] = useState<string | null>(null);
   const [converting, setConverting] = useState(false);
+
+  useEffect(() => {
+    incrementFeatureUsage("images.convert");
+  }, []);
 
   const handleConvert = useCallback(async () => {
     if (files.length === 0) return;

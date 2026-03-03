@@ -26,6 +26,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import JSZip from "jszip";
 import { Document, Packer, Paragraph } from "docx";
+import { incrementFeatureUsage } from "@/lib/usage-tracking";
 
 // Worker-URL für Vite (wie in PdfSplit)
 import pdfjsWorker from "pdfjs-dist/build/pdf.worker.mjs?url";
@@ -164,6 +165,10 @@ export function PdfConvert() {
     url: string;
     filename: string;
   } | null>(null);
+
+  useEffect(() => {
+    incrementFeatureUsage("pdf.convert");
+  }, []);
 
   const onFileChange = useCallback((v: File | File[] | null) => {
     if (v === null) {

@@ -116,6 +116,10 @@
         "title": "Andere Dateien",
         "description": "Markdown, JSON, TXT, CSV und mehr – konvertieren und anpassen"
       }
+    },
+    "mostUsed": {
+      "title": "Meistgenutzte Tools",
+      "subtitle": "Basierend auf deinen letzten Aktionen in diesem Browser."
     }
   },
   "pdf": {

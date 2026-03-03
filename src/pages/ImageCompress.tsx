@@ -16,6 +16,7 @@ import {
   getOutputMimeAndExt,
   TIFF_PARSE_ERROR,
 } from "@/lib/image-utils";
+import { incrementFeatureUsage } from "@/lib/usage-tracking";
 import { Download, FileArchive, Shrink } from "lucide-react";
 import JSZip from "jszip";
 import { useCallback, useEffect, useState } from "react";
@@ -110,6 +111,10 @@ export function ImageCompress() {
   >([]);
   const [error, setError] = useState<string | null>(null);
   const [compressing, setCompressing] = useState(false);
+
+  useEffect(() => {
+    incrementFeatureUsage("images.compress");
+  }, []);
 
   const handleCompress = useCallback(async () => {
     if (files.length === 0) return;

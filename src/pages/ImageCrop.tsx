@@ -19,6 +19,7 @@ import {
 import { Download, Crop } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { incrementFeatureUsage } from "@/lib/usage-tracking";
 
 type CropRect = { x: number; y: number; w: number; h: number };
 
@@ -48,6 +49,10 @@ export function ImageCrop() {
   const [resultUrl, setResultUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [cropping, setCropping] = useState(false);
+
+  useEffect(() => {
+    incrementFeatureUsage("images.crop");
+  }, []);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);

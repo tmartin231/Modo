@@ -116,6 +116,10 @@
         "title": "Other files",
         "description": "Markdown, JSON, TXT, CSV and more – convert and adjust"
       }
+    },
+    "mostUsed": {
+      "title": "Most used tools",
+      "subtitle": "Based on your recent actions in this browser."
     }
   },
   "pdf": {

@@ -18,6 +18,7 @@ import { FileImage, FileInput, FileText } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import JSZip from "jszip";
+import { incrementFeatureUsage } from "@/lib/usage-tracking";
 
 type ToPdfSource = "image" | "svg" | "html" | "text" | "docx" | "pptx";
 
@@ -238,6 +239,10 @@ export function PdfToPdf() {
       setSource(detectSourceFromFile(f));
     }
     setError(null);
+  }, []);
+
+  useEffect(() => {
+    incrementFeatureUsage("pdf.toPdf");
   }, []);
 
   useEffect(
