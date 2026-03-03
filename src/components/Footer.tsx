@@ -1,5 +1,6 @@
 import { Github, MessageCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { version } from "@/lib/utils";
 
 const FEEDBACK_EMAIL = "tmartin231@outlook.de";
 const FEEDBACK_SUBJECT = "qwikfiles – Feedback";
@@ -27,6 +28,9 @@ export function Footer() {
           <MessageCircle className="h-4 w-4" aria-hidden />
           {t("footer.feedback")}
         </a>
+      </div>
+      <div className="text-center text-sm text-muted-foreground mt-2">
+        v{version}
       </div>
     </footer>
   );

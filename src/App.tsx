@@ -11,7 +11,7 @@ import { Files } from "@/pages/Files";
 import { Pdf } from "@/pages/Pdf";
 import { PdfMerge } from "@/pages/PdfMerge";
 import { PdfSplit } from "@/pages/PdfSplit";
-import { Placeholder } from "@/pages/Placeholder";
+import { PdfConvert } from "@/pages/PdfConvert";
 
 function Layout() {
   return (
@@ -38,10 +38,7 @@ function App() {
         <Route path="pdf" element={<Pdf />} />
         <Route path="pdf/merge" element={<PdfMerge />} />
         <Route path="pdf/split" element={<PdfSplit />} />
-        <Route
-          path="pdf/convert"
-          element={<Placeholder titleKey="pdf.tools.convert.title" backTo="/pdf" />}
-        />
+        <Route path="pdf/convert" element={<PdfConvert />} />
         <Route path="files" element={<Files />} />
       </Route>
     </Routes>

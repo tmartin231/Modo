@@ -133,6 +133,27 @@
         "description": "Convert PDF into other formats like images or text."
       }
     },
+    "convertPage": {
+      "title": "Convert PDF",
+      "description": "Convert a PDF into Office documents or images – all in the browser.",
+      "fileLabel": "PDF file",
+      "dropzoneHint": "Drop PDF here or click to select",
+      "dropzoneActive": "Drop to upload",
+      "targetLabel": "Target format",
+      "targets": {
+        "word": "PDF to Word (DOCX)",
+        "imagesPng": "PDF to images (PNG)",
+        "imagesJpg": "PDF to images (JPG)",
+        "svg": "PDF to SVG (pages as SVG images)",
+        "pptx": "PDF to PowerPoint (PPTX)",
+        "html": "PDF to HTML (text)",
+        "text": "PDF to text (TXT)"
+      },
+      "convertBtn": "Convert",
+      "resetBtn": "Reset",
+      "resultReady": "Converted file ready for download",
+      "downloadResult": "Download file"
+    },
     "splitPage": {
       "title": "Split PDF",
       "description": "Upload a PDF, set split points between pages, and download the parts you want.",

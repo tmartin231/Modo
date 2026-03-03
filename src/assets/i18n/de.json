@@ -133,6 +133,27 @@
         "description": "PDF in andere Formate wie Bilder oder Text umwandeln."
       }
     },
+    "convertPage": {
+      "title": "PDF umwandeln",
+      "description": "Wandle ein PDF in Office-Dokumente oder Bilder um – komplett im Browser.",
+      "fileLabel": "PDF-Datei",
+      "dropzoneHint": "PDF hierher ziehen oder Klicken zum Auswählen",
+      "dropzoneActive": "Loslassen zum Hochladen",
+      "targetLabel": "Zielformat",
+      "targets": {
+        "word": "PDF in Word (DOCX)",
+        "imagesPng": "PDF in Bilder (PNG)",
+        "imagesJpg": "PDF in Bilder (JPG)",
+        "svg": "PDF in SVG (Seiten als SVG-Bilder)",
+        "pptx": "PDF in PowerPoint (PPTX)",
+        "html": "PDF in HTML (Text)",
+        "text": "PDF in Text (TXT)"
+      },
+      "convertBtn": "Konvertieren",
+      "resetBtn": "Zurücksetzen",
+      "resultReady": "Konvertierte Datei zum Download bereit",
+      "downloadResult": "Datei herunterladen"
+    },
     "splitPage": {
       "title": "PDF teilen",
       "description": "Lade ein PDF hoch, setze Teilpunkte zwischen den Seiten und lade die gewünschten Teile herunter.",
