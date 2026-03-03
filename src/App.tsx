@@ -10,6 +10,7 @@ import { Images } from "@/pages/Images";
 import { Files } from "@/pages/Files";
 import { Pdf } from "@/pages/Pdf";
 import { PdfMerge } from "@/pages/PdfMerge";
+import { PdfSplit } from "@/pages/PdfSplit";
 import { Placeholder } from "@/pages/Placeholder";
 
 function Layout() {
@@ -36,10 +37,7 @@ function App() {
         <Route path="images/crop" element={<ImageCrop />} />
         <Route path="pdf" element={<Pdf />} />
         <Route path="pdf/merge" element={<PdfMerge />} />
-        <Route
-          path="pdf/split"
-          element={<Placeholder titleKey="pdf.tools.split.title" backTo="/pdf" />}
-        />
+        <Route path="pdf/split" element={<PdfSplit />} />
         <Route
           path="pdf/convert"
           element={<Placeholder titleKey="pdf.tools.convert.title" backTo="/pdf" />}

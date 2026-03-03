@@ -133,6 +133,23 @@
         "description": "PDF in andere Formate wie Bilder oder Text umwandeln."
       }
     },
+    "splitPage": {
+      "title": "PDF teilen",
+      "description": "Lade ein PDF hoch, setze Teilpunkte zwischen den Seiten und lade die gewünschten Teile herunter.",
+      "fileLabel": "PDF-Datei",
+      "dropzoneHint": "PDF hierher ziehen oder Klicken zum Auswählen",
+      "dropzoneActive": "Loslassen zum Hochladen",
+      "previewLabel": "Seitenvorschau",
+      "splitHint": "Klicke auf die Schere zwischen zwei Seiten, um dort zu teilen. So entstehen mehrere Teile.",
+      "pageAlt": "Seite {{page}}",
+      "splitHere": "Trennen",
+      "splitOn": "Trennung an",
+      "partsLabel": "Teile zum Herunterladen",
+      "partsHint": "Wähle aus, welche Teile du herunterladen möchtest.",
+      "partRange": "Seite {{start}}–{{end}}",
+      "selectAll": "Alle auswählen",
+      "downloadSelected": "Ausgewählte herunterladen"
+    },
     "mergePage": {
       "description": "Wähle mehrere PDF-Dateien und ordne sie in der gewünschten Reihenfolge an.",
       "fileLabel": "PDF-Dateien",

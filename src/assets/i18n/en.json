@@ -133,6 +133,23 @@
         "description": "Convert PDF into other formats like images or text."
       }
     },
+    "splitPage": {
+      "title": "Split PDF",
+      "description": "Upload a PDF, set split points between pages, and download the parts you want.",
+      "fileLabel": "PDF file",
+      "dropzoneHint": "Drop PDF here or click to select",
+      "dropzoneActive": "Drop to upload",
+      "previewLabel": "Page preview",
+      "splitHint": "Click the scissors between two pages to split there. This creates multiple parts.",
+      "pageAlt": "Page {{page}}",
+      "splitHere": "Split",
+      "splitOn": "Split here",
+      "partsLabel": "Parts to download",
+      "partsHint": "Choose which parts to download.",
+      "partRange": "Pages {{start}}–{{end}}",
+      "selectAll": "Select all",
+      "downloadSelected": "Download selected"
+    },
     "mergePage": {
       "description": "Select multiple PDF files and arrange them in the desired order.",
       "fileLabel": "PDF files",
